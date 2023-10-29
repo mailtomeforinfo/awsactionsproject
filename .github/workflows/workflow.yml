@@ -25,6 +25,7 @@ jobs:
 
       - name: Create Deployment
         run: |
+          cd awsactionsproject
           aws deploy create-deployment \
               --application-name myapplication \
               --deployment-group-name myapplicationDeploymentGroup \
