@@ -25,12 +25,10 @@ jobs:
 
       - name: Create Deployment
         run: |
-          cd awsactionsproject
           aws deploy create-deployment \
               --application-name myapplication \
               --deployment-group-name myapplicationDeploymentGroup \
               --deployment-config-name CodeDeployDefault.AllAtOnce \
-              ##--github-location repository=your-repo-name,commitId=your-commit-id
               --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
 
 
