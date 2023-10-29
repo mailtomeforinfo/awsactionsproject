@@ -26,10 +26,12 @@ jobs:
       - name: Create Deployment
         run: |
           aws deploy create-deployment \
-            --application-name myapplication \
-            --deployment-group-name myapplicationDeploymentGroup \
-            --deployment-config-name CodeDeployDefault.AllAtOnce
-          # You can specify the source of your deployment files here
+              --application-name myapplication \
+              --deployment-group-name myapplicationDeploymentGroup \
+              --deployment-config-name CodeDeployDefault.AllAtOnce \
+              ##--github-location repository=your-repo-name,commitId=your-commit-id
+              --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+
 
       - name: Wait for Deployment
         id: deployment
