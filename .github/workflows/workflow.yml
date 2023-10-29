@@ -45,6 +45,21 @@ jobs:
             sleep 30
           done
 
+      - name: Wait for Deployment
+        id: deployment
+        run: |
+          deployment_id=$(aws deploy list-deployments --application-name myapplication --deployment-group-name myapplicationDeploymentGroup --query "deployments[0]" --output text)
+          while true; do
+            status=$(aws deploy get-deployment --deployment-id $deployment_id --query "deploymentInfo.status" --output text)
+            if [ "$status" = "Succeeded" ]; then
+              break
+            elif [ "$status" = "Failed" ]; then
+              exit 1
+            fi
+            sleep 30
+          done
+
+
       - name: Deployment Status
         run: |
           echo "Deployment status: ${{ steps.deployment.outputs.status }}"
