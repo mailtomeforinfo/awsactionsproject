@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to your custom index.html file
-custom_index_file="/scripts/index.html"
+custom_index_file="scripts/index.html"
 
 # Define the destination directory for Nginx
 nginx_html_dir="/usr/share/nginx/html/"
