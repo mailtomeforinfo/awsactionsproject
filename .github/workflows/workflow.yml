@@ -28,15 +28,14 @@ jobs:
           aws deploy create-deployment \
             --application-name myapplication \
             --deployment-group-name myapplicationDeploymentGroup \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --file-exists-behavior OVERWRITE
+            --deployment-config-name CodeDeployDefault.AllAtOnce
           # You can specify the source of your deployment files here
 
       - name: Wait for Deployment
         id: deployment
         run: |
           while true; do
-            status=$(aws deploy get-deployment --deployment-id ${{ steps.create_deployment.outputs.DeploymentId }} --query "deploymentInfo.status" --output text)
+            status=$(aws deploy get-deployment --query "deploymentInfo.status" --output text)
             if [ "$status" = "Succeeded" ]; then
               break
             elif [ "$status" = "Failed" ]; then
